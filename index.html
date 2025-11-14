@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk Ciaa ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient-light: linear-gradient(135deg, #fff1f2, #ffe4e6);
+            --card-bg-light: rgba(255, 255, 255, 0.85);
+            --text-color-light: #5c3c3c;
+            --primary-color-light: #ff8fab;
+            --shadow-light: 0 8px 32px 0 rgba(231, 120, 150, 0.3);
+
+            --bg-gradient-dark: linear-gradient(135deg, #2c1e2e, #4a2f38);
+            --card-bg-dark: rgba(50, 40, 45, 0.9);
+            --text-color-dark: #fce4ec;
+            --primary-color-dark: #ffabc1;
+            --shadow-dark: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: var(--bg-gradient-light);
+            color: var(--text-color-light);
+            transition: background 0.5s ease, color 0.5s ease;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body.dark-mode {
+            background: var(--bg-gradient-dark);
+            color: var(--text-color-dark);
+        }
+
+        .container,
+        .modal-content {
+            background: var(--card-bg-light);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem 2.5rem;
+            box-shadow: var(--shadow-light);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            transition: background 0.5s ease, box-shadow 0.5s ease;
+            position: relative;
+            z-index: 10;
+        }
+
+        body.dark-mode .container,
+        body.dark-mode .modal-content {
+            background: var(--card-bg-dark);
+            box-shadow: var(--shadow-dark);
+        }
+
+        h1, h2 {
+            margin-bottom: 1rem;
+            color: var(--primary-color-light);
+        }
+        
+        body.dark-mode h1,
+        body.dark-mode h2 {
+            color: var(--primary-color-dark);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        img.placeholder {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* --- STYLE UNTUK CHIBI --- */
+        .chibi-img {
+            max-width: 250px; /* Atur ukuran max di sini */
+            height: auto;     /* Menjaga rasio gambar */
+            margin-bottom: 1.5rem;
+        }
+        /* ------------------------------ */
+
+        button {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            background-color: var(--primary-color-light);
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 143, 171, 0.4);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 143, 171, 0.5);
+        }
+
+        button:active {
+            transform: translateY(-1px);
+        }
+        
+        body.dark-mode button {
+            background-color: var(--primary-color-dark);
+            color: #333;
+            box-shadow: 0 4px 15px rgba(255, 171, 193, 0.4);
+        }
+
+        /* 1. Loading Screen */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease;
+        }
+
+        .heart {
+            width: 100px;
+            height: 90px;
+            animation: beatingHeart 0.8s infinite ease-in-out;
+            position: relative;
+        }
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 52px;
+            height: 80px;
+            border-radius: 50px 50px 0 0;
+            background: #ff8fab;
+        }
+        .heart::before {
+            left: 50px;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+        .heart::after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+
+        #loading-screen p {
+            margin-top: 2rem;
+            font-size: 1.2rem;
+            color: #5c3c3c;
+        }
+
+        @keyframes beatingHeart {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* 2. Pages */
+        #page-1, #main-content {
+            display: none; /* Hidden by default */
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        
+        #supportive-message {
+            display: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color-light);
+            margin-top: 1.5rem;
+            min-height: 50px;
+        }
+        
+        body.dark-mode #supportive-message {
+            color: var(--primary-color-dark);
+        }
+
+        /* 3. Modals (Letter & Gallery) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            margin: auto;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-content p {
+            text-align: left;
+            white-space: pre-wrap; /* Preserves line breaks in the letter */
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .close-btn:hover {
+            color: var(--primary-color-light);
+        }
+        
+        body.dark-mode .close-btn:hover {
+            color: var(--primary-color-dark);
+        }
+
+        /* 4. Memory Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 1.5rem;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+            cursor: pointer; 
+            transition: transform 0.2s ease; 
+        }
+        
+        .gallery-grid img:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Staggered animation */
+        .gallery-grid img:nth-child(1) { animation-delay: 0.1s; }
+        .gallery-grid img:nth-child(2) { animation-delay: 0.2s; }
+        .gallery-grid img:nth-child(3) { animation-delay: 0.3s; }
+        .gallery-grid img:nth-child(4) { animation-delay: 0.2s; }
+        .gallery-grid img:nth-child(5) { animation-delay: 0.3s; }
+        .gallery-grid img:nth-child(6) { animation-delay: 0.4s; }
+        .gallery-grid img:nth-child(7) { animation-delay: 0.3s; }
+        .gallery-grid img:nth-child(8) { animation-delay: 0.4s; }
+        .gallery-grid img:nth-child(9) { animation-delay: 0.5s; }
+
+        /* --- STYLE BARU: IMAGE VIEWER MODAL --- */
+        .image-viewer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem; /* Jarak antara gambar dan tombol */
+            position: relative;
+        }
+
+        #enlarged-img {
+            max-width: 85vw;
+            max-height: 75vh;
+            border-radius: 10px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        /* Style untuk tombol download (<a>) agar terlihat seperti <button> */
+        .button-style {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            background-color: var(--primary-color-light);
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 143, 171, 0.4);
+            text-decoration: none; /* Menghilangkan garis bawah link */
+        }
+        .button-style:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 143, 171, 0.5);
+        }
+        body.dark-mode .button-style {
+            background-color: var(--primary-color-dark);
+            color: #333;
+            box-shadow: 0 4px 15px rgba(255, 171, 193, 0.4);
+        }
+        /* ------------------------------------- */
+
+        /* 5. Surprise Box */
+        #surprise-box {
+            background: linear-gradient(45deg, #ffb6c1, #ffcde0);
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin-top: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(255, 182, 193, 0.5);
+        }
+        
+        #surprise-box h2 {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0;
+            transition: all 0.3s ease;
+        }
+        
+        #surprise-box:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 25px rgba(255, 182, 193, 0.7);
+        }
+        
+        #surprise-box.revealed {
+            background: linear-gradient(45deg, #ff9a8b, #ffb38d);
+        }
+        
+        #surprise-box.revealed h2 {
+            opacity: 0;
+            animation: fadeIn 0.5s 0.3s ease forwards;
+        }
+
+        /* 6. Background Effects (Petals & Sparkles) */
+        .petal {
+            position: absolute;
+            top: -10px;
+            background-color: rgba(255, 192, 203, 0.8);
+            width: 10px;
+            height: 10px;
+            border-radius: 0% 50% 50% 50%;
+            animation: fall 5s linear infinite;
+            z-index: 1;
+        }
+        
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        #sparkle-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #ffffff;
+            border-radius: 50%;
+            opacity: 0;
+            animation: sparkle 1.5s ease-in-out infinite;
+            box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ff8fab;
+        }
+        
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        /* 7. Dark Mode Toggle */
+        #dark-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 50;
+            background: var(--card-bg-light);
+            color: var(--primary-color-light);
+            border: 2px solid var(--primary-color-light);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            padding: 0;
+            box-shadow: var(--shadow-light);
+        }
+
+        body.dark-mode #dark-mode-toggle {
+            background: var(--card-bg-dark);
+            color: var(--primary-color-dark);
+            border-color: var(--primary-color-dark);
+            box-shadow: var(--shadow-dark);
+        }
+        
+        /* Utility */
+        .hidden {
+            display: none;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="loading-screen">
+        <div class="heart"></div>
+        <p>Wait ya Cia...</p>
+    </div>
+
+    <div id="page-1" class="container">
+        <h1>Hey Cia ❤️</h1>
+        <p>Satu langkah lagi... Aku tau kamu udah kerja keras banget buat UTS ini. Aku bangga banget sama kamu!</p>
+        <img src="chanz.png" class="chibi-img" alt="Chibi Chanz"><br>
+        <button id="lanjut-btn">Lanjut</button>
+    </div>
+
+    <div id="main-content" class="container">
+        <h2>Udah selesai UTS? 💗</h2>
+        <button id="uts-button">Aku udah selesai UTS!</button>
+        
+        <p id="supportive-message"></p>
+        
+        <div class="button-group">
+            <button id="letter-btn">Buka Surat 💌</button>
+            <button id="gallery-btn">Galeri Kita 📸</button>
+        </div>
+        
+        <div id="surprise-box">
+            <h2>Ketuk buat kejutan! 🎁</h2>
+        </div>
+    </div>
+
+    <div id="letter-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="close-letter">&times;</span>
+            <h2>Surat buat kamu...</h2>
+            <p>
+Dear Cia,
+
+Selamat ya udah nyelesaiin UTS-nya!
+Aku tau banget kamu pasti capek, udah ngorbanin banyak waktu tidur, banyak pusing mikirin materi. Tapi liat, kamu berhasil ngelewatin semuanya. Kamu hebat banget.
+
+Sekarang, waktunya kamu istirahat. Tarik napas.. buang..
+Jangan mikirin dulu hasilnya gimana, yang penting kamu udah usaha maksimal. 
+Aku di sini selalu bangga sama semua usaha kamu, apapun hasilnya nanti.
+
+Makasih ya udah berjuang. 
+Sekarang, relax dulu ya. You deserve all the rest and happiness in the world.
+
+Aku sayang kamu banget.
+            </p>
+        </div>
+    </div>
+
+    <div id="gallery-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="close-gallery">&times;</span>
+            <h2>Kenangan Kita</h2>
+            <div class="gallery-grid">
+                <img src="chanz&cia.png" alt="Chanz & Cia">
+                <img src="httpsG://via.placeholder.com/150x150.png?text=Foto+2" alt="Kenangan 2 (masih kosong huhu)">
+                <img src="https://via.placeholder.com/150x150.png?text=Foto+3" alt="Kenangan 3 (kosong jugaa, fotbar yuu)">
+            </div>
+        </div>
+    </div>
+
+    <div id="image-viewer-modal" class="modal">
+        <span class="close-btn" id="close-image-viewer">&times;</span>
+        <div class="image-viewer-content">
+            <img src="" alt="Enlarged Image" id="enlarged-img">
+            <a href="#" id="download-btn" class="button-style" download>Download 💾</a>
+        </div>
+    </div>
+    <div id="petal-container"></div>
+    
+    <div id="sparkle-container">
+        <span class="sparkle" style="top: 20%; left: 10%; animation-delay: 0s;"></span>
+        <span class="sparkle" style="top: 50%; left: 30%; animation-delay: 0.5s;"></span>
+        <span class="sparkle" style="top: 80%; left: 20%; animation-delay: 1s;"></span>
+        <span class="sparkle" style="top: 10%; left: 70%; animation-delay: 0.3s;"></span>
+        <span class="sparkle" style="top: 60%; left: 80%; animation-delay: 0.8s;"></span>
+        <span class="sparkle" style="top: 40%; left: 50%; animation-delay: 0.2s;"></span>
+        <span class="sparkle" style="top: 90%; left: 60%; animation-delay: 1.2s;"></span>
+    </div>
+
+    <button id="dark-mode-toggle">🌙</button>
+
+    <audio id="bg-music" loop>
+        <source src="music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loadingScreen = document.getElementById('loading-screen');
+            const page1 = document.getElementById('page-1');
+            const mainContent = document.getElementById('main-content');
+            const lanjutBtn = document.getElementById('lanjut-btn');
+            const utsButton = document.getElementById('uts-button');
+            const supportiveMessage = document.getElementById('supportive-message');
+            const music = document.getElementById('bg-music');
+            const letterBtn = document.getElementById('letter-btn');
+            const galleryBtn = document.getElementById('gallery-btn');
+            const letterModal = document.getElementById('letter-modal');
+            const galleryModal = document.getElementById('gallery-modal');
+            const closeLetter = document.getElementById('close-letter');
+            const closeGallery = document.getElementById('close-gallery');
+            const surpriseBox = document.getElementById('surprise-box');
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
+            const petalContainer = document.getElementById('petal-container');
+            
+            const imageViewerModal = document.getElementById('image-viewer-modal');
+            const enlargedImg = document.getElementById('enlarged-img');
+            const downloadBtn = document.getElementById('download-btn');
+            const closeImageViewer = document.getElementById('close-image-viewer');
+            const galleryImages = document.querySelectorAll('.gallery-grid img');
+
+            const supportiveMessages = [
+                "Kamu hebat banget hari ini. Bikin aku bangga ❤️",
+                "Sekarang waktunya istirahat. Aku peluk dari jauh 🤍",
+                "Capek ya? sini… aku sayang kamu.",
+                "UTS selesai. Tapi cintaku ke kamu gak pernah selesai 💗",
+                "Good job, my love. Kamu boleh bangga sama dirimu 💕",
+                "Aku tau ini berat… tapi kamu lebih kuat dari yang kamu kira."
+            ];
+
+            // 1. Loading Screen
+            setTimeout(() => {
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                    page1.style.display = 'block';
+                    page1.classList.add('fade-in');
+                }, 500);
+            }, 2500); // 2.5 detik loading
+
+            // 2. Page 1 -> Main Content (Musik Main di Sini)
+            lanjutBtn.addEventListener('click', () => {
+                
+                // Play music on user interaction
+                music.play().catch(error => {
+                    console.log("Autoplay was prevented. User needs to interact more.");
+                });
+
+                page1.style.display = 'none';
+                mainContent.style.display = 'block';
+                mainContent.classList.add('fade-in');
+            });
+
+            // 3. UTS Button
+            utsButton.addEventListener('click', () => {
+                // Show random message
+                const randomIndex = Math.floor(Math.random() * supportiveMessages.length);
+                supportiveMessage.textContent = supportiveMessages[randomIndex];
+                supportiveMessage.style.display = 'block';
+                supportiveMessage.classList.add('fade-in');
+
+                // Hide button after click
+                utsButton.style.display = 'none';
+            });
+
+            // 4. Modal Logic (Surat & Galeri)
+            letterBtn.addEventListener('click', () => letterModal.style.display = 'flex');
+            galleryBtn.addEventListener('click', () => galleryModal.style.display = 'flex');
+            closeLetter.addEventListener('click', () => letterModal.style.display = 'none');
+            closeGallery.addEventListener('click', () => galleryModal.style.display = 'none');
+
+            // Logika Klik Gambar Galeri
+            galleryImages.forEach(img => {
+                img.addEventListener('click', (e) => {
+                    const imgSrc = e.target.src;
+                    const imgAlt = e.target.alt || 'kenangan.png'; 
+
+                    enlargedImg.src = imgSrc;
+                    downloadBtn.href = imgSrc;
+                    downloadBtn.download = imgAlt; 
+                    
+                    imageViewerModal.style.display = 'flex';
+                });
+            });
+
+            // Tombol close untuk modal gambar baru
+            closeImageViewer.addEventListener('click', () => {
+                imageViewerModal.style.display = 'none';
+            });
+
+            // Klik di luar modal untuk menutup
+            window.addEventListener('click', (e) => {
+                if (e.target == letterModal) {
+                    letterModal.style.display = 'none';
+                }
+                if (e.target == galleryModal) {
+                    galleryModal.style.display = 'none';
+                }
+                if (e.target == imageViewerModal) {
+                    imageViewerModal.style.display = 'none';
+                }
+            });
+
+            // 5. Surprise Box
+            surpriseBox.addEventListener('click', () => {
+                surpriseBox.classList.add('revealed');
+                surpriseBox.innerHTML = '<h2>✨ Kamu hadiah terindah di hidup aku ✨</h2>';
+            });
+            
+            // 6. Dark Mode
+            darkModeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                darkModeToggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+            });
+
+            // 7. Falling Petals
+            function createPetal() {
+                const petal = document.createElement('div');
+                petal.classList.add('petal');
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.animationDuration = Math.random() * 3 + 4 + 's';
+                petal.style.opacity = Math.random() * 0.5 + 0.5;
+                
+                if (Math.random() > 0.5) {
+                    petal.style.width = '15px';
+                    petal.style.height = '15px';
+                    petal.style.borderRadius = '50% 0% 50% 50%';
+                } else {
+                     petal.style.transform = 'rotate(45deg)';
+                }
+
+                petalContainer.appendChild(petal);
+
+                setTimeout(() => {
+                    petal.remove();
+                }, 7000);
+            }
+
+            setInterval(createPetal, 400);
+        });
+    </script>
+
+</body>
+</html>
